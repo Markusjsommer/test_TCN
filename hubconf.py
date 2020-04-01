@@ -1,4 +1,6 @@
-dependencies = ['torch']
+dependencies = ['torch', 'os']
+
+import os
 
 def geneTCN():
     """ Pretrained Temporal Convolutional Network for bacterial gene identification."""
