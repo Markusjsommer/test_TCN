@@ -18,7 +18,6 @@ def geneTCN():
     kernel_size = 8
     dropout = 0.05
     hidden_units_per_layer = 25
-    seq_length = 40
     levels = 5
     channel_sizes = [hidden_units_per_layer] * levels
     
@@ -38,7 +37,7 @@ class TCN(nn.Module):
         """Inputs have to have dimension (N, C_in, L_in)"""
         y1 = self.tcn(inputs)  # input should have dimension (N, C, L)
         # o = self.linear(y1[:, :, -1])
-        o_all = [self.linear(y1[:, :, i]) for i in range(self.input_size)] # return all outputs so we can select the correct index for the actual length of the non-padded sequence
+        o_all = [self.linear(y1[:, :, i]) for i in range(y1.shape[2])] # return all outputs so we can select the correct index for the actual length of the non-padded sequence
         return o_all
 
 class Chomp1d(nn.Module):
