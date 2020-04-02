@@ -11,8 +11,10 @@ def geneTCN():
     
     dirname = os.path.dirname(__file__)
     checkpoint = os.path.join(dirname, "weights/geneTCN.pt")
-    state_dict = torch.load(checkpoint)
-    
+    if torch.cuda.device_count() > 0:
+        state_dict = torch.load(checkpoint)
+    else:
+        state_dict = torch.load(checkpoint, map_location=torch.device('cpu'))
     input_channels = 21
     n_classes = 1
     kernel_size = 8
@@ -36,7 +38,6 @@ class TCN(nn.Module):
     def forward(self, inputs):
         """Inputs have to have dimension (N, C_in, L_in)"""
         y1 = self.tcn(inputs)  # input should have dimension (N, C, L)
-        # o = self.linear(y1[:, :, -1])
         o_all = torch.stack([self.linear(y1[:, :, i]) for i in range(y1.shape[2])], dim=2) # return all outputs so we can select the correct index for the actual length of the non-padded sequence
         return o_all
 
