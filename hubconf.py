@@ -37,6 +37,7 @@ class TCN(nn.Module):
         """Inputs have to have dimension (N, C_in, L_in)"""
         y1 = self.tcn(inputs)  # input should have dimension (N, C, L)
         # o = self.linear(y1[:, :, -1])
+        
         o_all = torch.stack([self.linear(y1[:, :, i]) for i in range(y1.shape[2])], dim=2) # return all outputs so we can select the correct index for the actual length of the non-padded sequence
         return o_all
 
