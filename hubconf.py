@@ -37,7 +37,8 @@ class TCN(nn.Module):
     def forward(self, inputs):
         """Inputs have to have dimension (N, C_in, L_in)"""
         y1 = self.tcn(inputs)  # input should have dimension (N, C, L)
-        o = self.linear(y1[:, :, -1])
+        # o = self.linear(y1[:, :, -1])
+        o = self.linear(y1[:, :, :]) # return all outputs so we can select the correct index for the actual length of the non-padded sequence
         return o
 
 class Chomp1d(nn.Module):
