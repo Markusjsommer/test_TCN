@@ -52,7 +52,7 @@ def tisTCN():
     
 class TCN_allhidden(nn.Module):
     def __init__(self, input_size, output_size, num_channels, kernel_size, dropout):
-        super(TCN, self).__init__()
+        super(TCN_allhidden, self).__init__()
         self.tcn = TemporalConvNet(input_size, num_channels, kernel_size=kernel_size, dropout=dropout)
         self.linear = nn.Linear(num_channels[-1], output_size)
 
@@ -64,7 +64,7 @@ class TCN_allhidden(nn.Module):
 
 class TCN_logit(nn.Module):
     def __init__(self, input_size, output_size, num_channels, kernel_size, dropout):
-        super(TCN, self).__init__()
+        super(TCN_logit, self).__init__()
         self.tcn = TemporalConvNet(input_size, num_channels, kernel_size=kernel_size, dropout=dropout)
         self.linear = nn.Linear(num_channels[-1], output_size)
 
