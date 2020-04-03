@@ -38,7 +38,7 @@ def tisTCN():
     else:
         state_dict = torch.load(checkpoint, map_location=torch.device('cpu'))
 
-    input_channels = 21
+    input_channels = 4
     n_classes = 1
     kernel_size = 6
     dropout = 0.05
